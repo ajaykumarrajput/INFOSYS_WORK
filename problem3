@@ -1,0 +1,47 @@
+import java.util.Arrays;
+
+public class MaxResValue {
+    public static long calculateResValue(int[] arr, int startIdx, int direction) {
+        int n = arr.length;
+        long totalValue = 0;
+        int currentXor = 0;
+        int currentIndex = startIdx;
+
+        for (int i = 0; i < n; i++) {
+            currentIndex = (startIdx + i * direction) % n;
+            if (currentIndex < 0) {
+                currentIndex += n;
+            }
+            int currentElement = arr[currentIndex];
+            currentXor ^= currentElement;
+            totalValue += currentXor;
+        }
+        return totalValue;
+    }
+    public static long findMaxRes(int[] arr) {
+        long maxVal = Long.MIN_VALUE;
+        int n = arr.length;
+        for (int startIdx = 0; startIdx < n; startIdx++) {
+            // Check both directions (right: 1, left: -1)
+            long valRight = calculateResValue(arr, startIdx, 1);
+            long valLeft = calculateResValue(arr, startIdx, -1);
+
+            if (valRight > maxVal) {
+                maxVal = valRight;
+            }
+            if (valLeft > maxVal) {
+                maxVal = valLeft;
+            }
+        }
+        return maxVal;
+    }
+
+    public static void main(String[] args) {
+        int[] arr1 = {7, 8, 5, 5, 9, 2, 2, 0, 1, 6};
+        long maxRes1 = findMaxRes(arr1);
+        System.out.println("Maximum value of RES for ARR1: " + maxRes1); // Expected output is 99
+        int[] arr2 = {1, 2, 3};
+        long maxRes2 = findMaxRes(arr2);
+        System.out.println("Maximum value of RES for ARR2: " + maxRes2);
+    }
+}
