@@ -1,0 +1,32 @@
+package INFOSYS_CODES;
+
+import java.util.*;
+public class Halloumi_Boxes {
+    public static boolean isSorted(int[] a) {
+        for (int i = 1; i < a.length; i++) {
+            if (a[i] < a[i - 1]) {
+                return false;
+            }
+        }
+        return true;
+    }
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int aj = sc.nextInt();
+        while (aj > 0) {
+            int n = sc.nextInt();
+            int k = sc.nextInt();
+
+            int[] a = new int[n];
+            for (int i = 0; i < n; i++) {
+                a[i] = sc.nextInt();
+            }
+            if (k > 1 || isSorted(a)) {
+                System.out.println("YES");
+            } else {
+                System.out.println("NO");
+            }
+            aj--;
+        }
+    }
+}
